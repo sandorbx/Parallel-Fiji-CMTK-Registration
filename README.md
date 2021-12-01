@@ -59,4 +59,5 @@ appropriately they would be processed.
 - For detailed information on parameters and operations please visit the flybrain wiki :  http://flybrain.mrc-lmb.cam.ac.uk/dokuwiki/doku.php?id=warping_manual:start
 
 
-### Special thanks to : Kei Ito, Gregory Jefferis, Hideo Otsuna and Takashi Kawase 
+### Special thanks to :
+Kei Ito, Gregory Jefferis, Hideo Otsuna and Takashi Kawase 
