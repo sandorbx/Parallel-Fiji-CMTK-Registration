@@ -10,7 +10,7 @@
 
 - If you don't have it already install Fiji from : https://fiji.sc
 
-- Place the  Paralell_CMTK_GUI_***.ijm file in your fiji.app/plugins/macros library and you can start it from the plugins>macros menu un Fiji
+- Place the  Paralell_Fiji_CMTK_Registration***.ijm file in your fiji.app/plugins/macros library and you can start it from the plugins>macros menu un Fiji
 or just drag and drop the script file to the fiji window and its ready to use.
 
 ### Mac
@@ -19,7 +19,7 @@ or just drag and drop the script file to the fiji window and its ready to use.
 
 - If you don't have it already install Fiji from : https://fiji.sc
 
-- Place the  Paralell_CMTK_GUI_***.ijm file in your fiji.app/plugins/macros library and you can start it from the plugins>macros menu un Fiji
+- Place the  Paralell_Fiji_CMTK_Registration***.ijm file in your fiji.app/plugins/macros library and you can start it from the plugins>macros menu un Fiji
  or just drag and drop the script file to the fiji window and its ready to use.
 
 ### Windows 10/11
@@ -39,7 +39,7 @@ sudo apt install cmtk -y
 
 -If you don't have it already install Fiji from : https://fiji.sc
 
--Place the Paralell_CMTK_GUI_***.ijm file in your fiji.app/plugins/macros library and you can start it from the plugins>macros menu un Fiji 
+-Place the Paralell_Fiji_CMTK_Registration***.ijm file in your fiji.app/plugins/macros library and you can start it from the plugins>macros menu un Fiji 
 or just drag and drop the script file to the fiji window and its ready to use.
 
 ## User guide
