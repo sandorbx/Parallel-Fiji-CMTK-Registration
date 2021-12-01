@@ -15,7 +15,7 @@ Linux(Ubuntu/Debian),
 
 Mac
 
-	- Install CMTK, download the dmg release file from https://www.nitrc.org/frs/download.php/8217/CMTK-3.3.1-MacOSX-10.6-x86_64.dmg, double click it in finder then go to your system settings>security to authorize the install
+	- Install CMTK, download the dmg release file from https://www.nitrc.org/frs/download.php/8217/CMTK-3.3.1-MacOSX-10.6-x86_64.dmg, double click it in finder then go to 		  your system settings>security to authorize the install
 
 	- If you don't have it already install Fiji from : https://fiji.sc
 
@@ -28,7 +28,7 @@ Windows 10/11
 
 	- Start powershell as admin and type the following command: wsl --install
 
-	- Now you can use windows subsystem for linux by running the ubuntu terminal app, just type ubuntu in the search bar to find it, set up your username and password then run in the terminal :
+	- Now you can use windows subsystem for linux by running the ubuntu terminal app, just type ubuntu in the search bar to find it, set up your username and password then  	   run in the terminal :
 
 		sudo apt update
 		sudo apt upgrade -y
@@ -44,10 +44,10 @@ Windows 10/11
 User guide
 
 	- Very important to use the following naming convention with your image files, otherwise the script will not work : 
-	  images has to be named by adding a number indicating the channel in the end of the filename separated by and underscore (yourpicturename_01; yourpicturename_02 and so on)
-	  _01 indicates the registration channel, images belonging to the same scan must have identical names only differentiated by the channel number.
+	  images has to be named by adding a number indicating the channel in the end of the filename separated by an underscore (yourpicturename_01; yourpicturename_02 
+	  and so on. _01 indicates the registration channel, images belonging to the same scan must have identical names only differentiated by the channel number.
 
-	- The script has an automatic batch mode, you can register a whole database with one run, the "images to register" directory serves as a starting point from where the whole directory tree would be scanned recursively for images and 	   processed.
+	- The script has an automatic batch mode, you can register a whole database with one run, the "images to register" directory serves as a starting point from where the    	    whole directory tree would be scanned recursively for images and processed.
 	  You can have several scans in one folder, in subdirectories and so on, as long as they named appropriately they would be processed.
 
 	- You can set the number of paralell jobs in batch mode, watch out for memory consumption.
