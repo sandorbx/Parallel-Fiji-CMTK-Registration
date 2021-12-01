@@ -57,3 +57,6 @@ appropriately they would be processed.
 - If you check the show results box you can instantly open reformatted images in Fiji from a pop-up list.
 
 - For detailed information on parameters and operations please visit the flybrain wiki :  http://flybrain.mrc-lmb.cam.ac.uk/dokuwiki/doku.php?id=warping_manual:start
+
+
+### Special thanks to : Kei Ito, Gregory Jefferis, Hideo Otsuna and Takashi Kawase 
