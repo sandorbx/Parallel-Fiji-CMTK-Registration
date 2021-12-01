@@ -1,0 +1,45 @@
+fiji registration 21/11/02 fiji registration.16
+
+* add: print parameters in log
+*add: job timer
+* organized GUI options
+*add: presets
+
+fiji registration 21/06/26 fiji registration.15
+
+*fix: user interface
+*changed: warp accuracy slider divided into a fast or accurate compute mode switch and to a separate omit original data(skip final resolution) option
+*add: affine accuracy and exploration options
+*add: registration metric options
+*add: some mouseover help texts
+
+fiji registration 21/05/26 fiji registration.14
+
+*add: check and feedback on the reformat step, number of images and succes
+*add: results can be instantly opened in fiji from a pop up list
+
+fiji registration 21/05/23 fiji registration.13
+
+*add: refomratx commands always run paralell if more than one channel is selected
+
+fiji registration 21/05/17 fiji registration.13
+
+*add: paralell run option and scheduler
+*add: simple check if the job was sucessfull
+
+fiji registration 21/05/05 fiji registration.12
+* add: otput directory
+* add: batch scans in a directory
+* add: recursive scanning of the directory tree for batch operation
+
+fiji registration 21/04/28 fiji registration.11
+
+*added advanced initialization --make-initial-affine with principal axes or center of mass
+* corrected the handling of transformation study lists
+
+
+fiji registration 21/04/22 fiji registration.10
+
+*added reformatted directory
+*added accuracy slider(1= --accurate, 2 = --fast, 3 = --fast --omit-original--data)
+*corrected variable names
