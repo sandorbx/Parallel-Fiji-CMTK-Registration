@@ -4,9 +4,11 @@
 
 - Open the Terminal. Update the system and install CMTK from the repository, with the following commands:
 
-	sudo apt update
-	sudo apt upgrade -y
-	sudo apt install cmtk -y
+sudo apt update
+
+sudo apt upgrade -y
+
+sudo apt install cmtk -y
 
 - If you don't have it already install Fiji from : https://fiji.sc
 
@@ -32,7 +34,9 @@ or just drag and drop the script file to the fiji window and its ready to use.
 run in the terminal :
 
 sudo apt update
+
 sudo apt upgrade -y
+
 sudo apt install cmtk -y
 		
 - You can close the terminal and use the windows version of Fiji
