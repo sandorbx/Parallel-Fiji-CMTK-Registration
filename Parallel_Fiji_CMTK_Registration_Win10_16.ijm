@@ -172,7 +172,7 @@ function affine(refbrain_path,registration_channel_path,affine_list,dof1,dof2,af
 	}
 
 function warp(warp_list,affine_list,X,C,R,G,T,warp_accuracy,speed,warp_reg_metric,final_res) {	
-	warp_command = "cmtk warp "+warp_reg_metric+" --threads "+T+" --jacobian-weight 0 "+speed+" -e 18 --grid-spacing "+G+" --energy-weight 1e-1 --refine "+R+" --coarsest "+C+" --ic-weight 0 --output-intermediate --accuracy "+warp_accuracy+" "+final_res+" -o "+warp_list+" "+affine_list+";";
+	warp_command = "cmtk warp "+warp_reg_metric+" --threads "+T+" --jacobian-weight 0 "+speed+" -e "+X+" --grid-spacing "+G+" --energy-weight 1e-1 --refine "+R+" --coarsest "+C+" --ic-weight 0 --output-intermediate --accuracy "+warp_accuracy+" "+final_res+" -o "+warp_list+" "+affine_list+";";
 	return warp_command;
 	}
 
