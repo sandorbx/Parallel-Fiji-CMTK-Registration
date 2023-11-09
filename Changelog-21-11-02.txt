@@ -1,3 +1,8 @@
+fiji registration 23/11/09 fiji registration.18
+*add:Normalized Cross correlation measurments as registration quality metric
+*add: overlay avi output to visually asses alignment quality
+*add: Jacobian map output
+
 fiji registration 21/11/02 fiji registration.16
 
 * add: print parameters in log
