@@ -15,6 +15,8 @@
 #@ Integer (label="Number of paralell running jobs", style="slider", min=1, max=20, stepSize=1, value=1,description = "In case of several scans in the directory you can shcedule the processing in paralell groups, keep in mind your available memory") para
 
 #@ String (visibility=MESSAGE, value=" Reformat options                                       ", required=false) ref
+#@ boolean (label = "Output overlay avi") avi_out
+
 #@ boolean (label = "reformat channel 01") rx1
 #@ boolean (label = "reformat channel 02") rx2
 #@ boolean (label = "reformat channel 03") rx3
@@ -36,6 +38,8 @@
 #@ Integer (label="Refine grid", value=4) R
 #@ Integer (label="grid size(aim for three grid points along the shortest axis)", value=80) G
 #@ String (label= "Compute mode", choices={"--fast", "--accurate"}, style="listBox", description="Accurate mode may give slightly better result with substantially longer compute time, use --fast if unsure") speed
+#@ boolean (label = "Output Jacobian determinant map") jacobi_out
+
 
 if(preset=="Full Flybrain(Cachero-Ostrovksy_2010)") {
 	init_mode ="--centers-of-mass";
@@ -68,6 +72,7 @@ if(preset=="VNC") {
 	G =95;
 	speed ="--fast";	
 }
+
 
 
 function calc_para_cycles(length,para) {
@@ -148,11 +153,14 @@ function reformatx(reg_folder_path,refbrain_path,reformat_list, transf_list) {
 		outfilename = substring(outfilename, 0, lastIndexOf(outfilename,"."));
 				
 		if (operation == "Affine Registration"){
-			command = "cmtk reformatx --pad-out 0 -o "+reg_folder_path+"/Reformatted/affine_"+outfilename+".nrrd --floating "+reformat_list[i]+" "+refbrain_path+" "+transf_list+" & ";
+			command = "cd "+reg_folder_path+"; cmtk reformatx --pad-out 0 -o Reformatted"+File.separator+"affine_"+outfilename+".nrrd --floating "+reformat_list[i]+" "+refbrain_path+" "+transf_list+" & ";
 			}   
-		else {			
-			command = "cmtk reformatx --pad-out 0 -o "+reg_folder_path+"/Reformatted/warp_"+outfilename+".nrrd --floating "+reformat_list[i]+" "+refbrain_path+" "+transf_list+" & ";
+		else if (jacobi_out==1 && endsWith(outfilename, "_01")) {			
+			command = "cd "+reg_folder_path+"; cmtk reformatx --pad-out 0 -o Reformatted"+File.separator+"jacobian_warp_"+outfilename+".nrrd --floating "+reformat_list[i]+" "+refbrain_path+" --jacobian "+transf_list+" & "+"cmtk reformatx --pad-out 0 -o Reformatted"+File.separator+"warp_"+outfilename+".nrrd --floating "+reformat_list[i]+" "+refbrain_path+" "+transf_list+" & ";
 			}
+		else {
+			command = "cd "+reg_folder_path+"; cmtk reformatx --pad-out 0 -o Reformatted"+File.separator+"warp_"+outfilename+".nrrd --floating "+reformat_list[i]+" "+refbrain_path+" "+transf_list+" & ";
+		}
 		reformatx_command = reformatx_command + command;
 		}
 	reformatx_command = substring(reformatx_command, 0, lastIndexOf(reformatx_command,"&"));	
@@ -165,7 +173,7 @@ function affine(refbrain_path,registration_channel_path,affine_list,dof1,dof2,af
 	}
 
 function warp(warp_list,affine_list,X,C,R,G,T,warp_accuracy,speed,warp_reg_metric,final_res) {	
-	warp_command = "cmtk warp "+warp_reg_metric+" --threads "+T+" --jacobian-weight 0 "+speed+" -e "+X+" --grid-spacing "+G+" --energy-weight 1e-1 --refine "+R+" --coarsest "+C+" --ic-weight 0 --output-intermediate --accuracy "+warp_accuracy+" "+final_res+" -o "+warp_list+" "+affine_list+";";
+	warp_command = "cmtk warp "+warp_reg_metric+" --threads "+T+" --jacobian-weight 0 "+speed+" -e 18 --grid-spacing "+G+" --energy-weight 1e-1 --refine "+R+" --coarsest "+C+" --ic-weight 0 --accuracy "+warp_accuracy+" "+final_res+" -o "+warp_list+" "+affine_list+";";
 	return warp_command;
 	}
 
@@ -256,16 +264,16 @@ for (j = 0; j < directory_path_list.length; j++) {
 				reformat_list = make_reformat_path_list(name,imagefile_list,images_path,rx1,rx2,rx3);
 
 			if (operation == "Affine Registration") {
-				affine_list = reg_folder_path+"/"+name+"_"+"affine.list";
+				affine_list = reg_folder_path+"/"+name+"_"+"affine.xform";
 				affine_check_list = Array.concat(affine_check_list,affine_list);
 				affine_command = affine(refbrain_path,registration_channel_path,affine_list,dof1,dof2,affine_accuracy,init_mode,init_list,affine_X,affine_reg_metric,final_res);
 				transf_list = affine_list;
 				}
 	
 			if (operation == "Affine and Warp Registration") {
-				affine_list = reg_folder_path+"/"+name+"_"+"affine.list";
+				affine_list = reg_folder_path+"/"+name+"_"+"affine.xform";
 				affine_check_list = Array.concat(affine_check_list,affine_list);
-				warp_list = reg_folder_path+"/"+name+"_"+"warp.list";
+				warp_list = reg_folder_path+"/"+name+"_"+"warp.xform";
 				warp_check_list = Array.concat(warp_check_list,warp_list);
 				affine_command = affine(refbrain_path,registration_channel_path,affine_list,dof1,dof2,affine_accuracy,init_mode,init_list,affine_X,affine_reg_metric,final_res);
 				warp_command = warp(warp_list,affine_list,X,C,R,G,T,warp_accuracy,speed,warp_reg_metric,final_res);
@@ -331,6 +339,7 @@ for (i = 0; i < name_list.length; i++) {
 
 print("Please wait");
 
+
 para_cycles = calc_para_cycles(paralell_command_list.length,para);
 bash_command = "";
 
@@ -352,13 +361,17 @@ for (i = 0; i < para_cycles; i++) {
 			}
 	}
 
-	cycle_command = cycle_command+" wait; ";
+	cycle_command = cycle_command+" wait;";
 	bash_command = bash_command + cycle_command;	
 	}
 
-print(" ");
-
+print(bash_command);
 exec("sh", "-c", "start_time=`date +%s`;"+bash_command+"end_time=`date +%s`;echo execution time was `expr $end_time - $start_time` s.");
+
+for (r = 0; r < reformatx_check_list.length; r++) {
+	if (File.exists(reformatx_check_list[r]) && matches(imagefile_list[r], ".*_01.*") == 1)
+		exec("sh", "-c", "echo "+reformatx_check_list[r]+" NCC:; cmtk similarity "+refbrain_path+" "+reformatx_check_list[r]+" | grep 'SIMval' | awk '{print $7}'");
+	}
 
 if (operation == "Affine and Warp Registration") {
 	for (i = 0; i < warp_check_list.length; i++) {
@@ -391,6 +404,32 @@ for (r = 0; r < reformatx_check_list.length; r++) {
 
 print(" ");
 print("Reformatted "+reformat_counter+" images");
+
+if (avi_out) {
+	setBatchMode(true);
+	for (r = 0; r < reformatx_check_list.length; r++) {
+		open(refbrain);
+		setSlice(floor(nSlices/2));
+		run("Enhance Contrast", "saturated=0.35");
+		image = reformatx_check_list[r];
+		dotIndex = lastIndexOf(image, ".");
+		baseName = substring(image, 0, dotIndex);
+		if (endsWith(baseName, "_01")) {
+			open(image);
+			
+			avi_path = substring(image, 0, lastIndexOf(image, "/"));
+			setSlice(floor(nSlices/2));
+			run("Enhance Contrast", "saturated=0.35");
+			template_name = File.getName(refbrain);
+			image_name = File.getName(image);
+			run("Merge Channels...", "c2="+template_name+" c6="+image_name+" create ");			
+			run("AVI... ", "compression=JPEG frame=15 save="+avi_path+File.separator+image_name+"-overlay.avi");						
+		}
+		close();
+		
+	}
+}
+
 
 if (show==1)
 	Array.show(reformatx_check_list);
