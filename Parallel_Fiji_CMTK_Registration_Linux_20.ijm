@@ -1,5 +1,5 @@
 #@ String (label= "Choose an operation to perform", choices={"Affine and Warp Registration", "Affine Registration"}, style="listBox", description="Affine and warp means a full non rigid registration, in case of suboptimal output try to run just affine and make sure it gives a good alignment") operation
-#@ String (label= "Registration Parameter Preset", choices={"None", "Full Flybrain(Cachero-Ostrovksy_2010)", "VNC"}, style="listBox", description="If active will use default affine and warp parameters instead of user settings under affine and warp parameters") preset
+#@ String (label= "Registration Parameter Preset", choices={"Full Flybrain(Cachero-Ostrovksy_2010)", "VNC". "None"}, style="listBox", description="If active will use default affine and warp parameters instead of user settings under affine and warp parameters") preset
 
 #@ String (visibility=MESSAGE, value=" Input&Output options                                       ", required=false) io
 
@@ -20,7 +20,7 @@
 #@ boolean (label = "reformat channel 01") rx1
 #@ boolean (label = "reformat channel 02") rx2
 #@ boolean (label = "reformat channel 03") rx3
-#@ boolean (label = "reformat channel 04") rx4  // Added for the fourth channel
+#@ boolean (label = "reformat channel 04") rx4
 
 #@ String (visibility=MESSAGE, value=" Affine Parameters                                       ", required=false) section2
 
