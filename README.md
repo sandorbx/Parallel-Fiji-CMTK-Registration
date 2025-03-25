@@ -30,8 +30,11 @@ or just drag and drop the script file to the fiji window and its ready to use.
 
 - Start powershell as admin and type the following command: wsl --install
 
-- Now you can use windows subsystem for linux by running the ubuntu terminal app, just type ubuntu in the search bar to find it, set up your username and password then 
-run in the terminal :
+-Now you can install a linux distribution under wsl :  wsl --install -d Ubuntu-22.04 
+
+- Restart your computer, open Powershell again and type the following commands: 
+
+wsl
 
 sudo apt update
 
@@ -47,6 +50,10 @@ sudo apt install cmtk -y
 or just drag and drop the script file to the fiji window and its ready to use.
 
 ## User guide
+
+- The registration requires the image files  to be in .nrrd format (https://en.wikipedia.org/wiki/Nrrd), conversion can be done in Fiji/ImageJ.
+
+- Avoid using spaces in the file paths 
 
 - Very important to use the following naming convention with your image files, otherwise the script will not work : 
  images has to be named by adding a number indicating the channel in the end of the filename separated by an underscore (yourpicturename_01; yourpicturename_02 
